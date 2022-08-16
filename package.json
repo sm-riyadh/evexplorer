@@ -1,0 +1,39 @@
+{
+  "name": "nodejs-tailwind",
+  "version": "1.0.0",
+  "description": "Uses TailwindCSS in Node.js with Express",
+  "main": "./src/main.js",
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon ./src/main.js",
+    "build:client": "cross-env TAILWIND_MODE=build vite build --outDir dist/client  --ssrManifest",
+    "build:server": "cross-env TAILWIND_MODE=build vite build --outDir dist/server --ssr src/main.js ",
+    "serve": "vite preview",
+    "start": "concurrently \"nodemon ./src/main.js\", \"yarn run tailwind:css\"",
+    "tailwind:css": "postcss -w ./src/style/main.css -o ./dist/style.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.17.1",
+    "flowbite": "^1.5.2",
+    "vite-plugin-ejs": "^1.5.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.0.1",
+    "concurrently": "^7.3.0",
+    "cross-env": "^7.0.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.19",
+    "postcss": "^8.1.2",
+    "postcss-cli": "^10.0.0",
+    "postcss-import": "^14.1.0",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "tailwindcss": "^3.1.8",
+    "vitawind": "^2.2.4",
+    "vite": "^3.0.7"
+  }
+}
