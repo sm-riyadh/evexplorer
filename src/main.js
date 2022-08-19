@@ -1,3 +1,4 @@
+import './db/mongoose.js'
 import express, { json, urlencoded } from 'express'
 import fs from 'fs'
 import logger from 'morgan'
@@ -17,9 +18,9 @@ const app = express()
 app.use(logger('dev'))
 app.use(json())
 app.use(urlencoded({ extended: true }))
+app.locals.baseURL = `${host}:${port}`
 
 app.use(express.static(join(__dirname, '../node_modules/flowbite/dist/')))
-// app.use('./js/lib', express.static(join(__dirname, '../node_modules/flowbite/dist/')))
 app.use(express.static(join(__dirname, '../dist')))
 app.use(express.static(join(__dirname, '../assets')))
 app.set('views', join(__dirname, '/views'))
