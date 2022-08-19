@@ -5,6 +5,9 @@ export default router => {
   router.get('/login', async (req, res, next) => {
     res.render('login')
   })
+  router.get('/event-maker', async (req, res, next) => {
+    res.render('eventMaker')
+  })
   router.get('/event/:id', async (req, res, next) => {
     const event = await Event.findOne({ id: req.params.id })
 

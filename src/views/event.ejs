@@ -24,29 +24,36 @@
               <div class='sticky top-16'>
                 <div class='w-full rounded-lg  dark:bg-gray-800 dark:border-gray-700'>
                   <div class='px-4 py-2'>
-                    <br>
-                    <h5 class='mb-2 text-base font-bold tracking-tight text-gray-900 dark:text-white'>Subscribed: 0
-                    </h5>
-                    <div class='mb-2'>
-                      <h6 class='text-sm tracking-tight text-gray-900 dark:text-white'>Open for:</h6>
-                      <p class='text-base font-bold tracking-tight text-gray-900 dark:text-white'>
-                        Anyone <%= access %>
-                      </p>
+                    <kbd
+                      class="px-2 py-1.5 my-4 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">Open
+                      for All <%= access %></kbd>
+                    <div class='my-4'>
+                      <button type="submit"
+                        class="items-center w-full py-2.5 my-2 px-4 text-xs font-medium text-center text-white bg-indigo-700 rounded-lg focus:ring-4 focus:ring-indigo-200 dark:focus:ring-indigo-900 hover:bg-indigo-800">
+                        Buy Ticket
+                      </button>
+                      <br>
+                      <button type="submit"
+                        class="items-center w-full py-2.5 my-2 px-4 text-xs font-medium text-center text-white bg-indigo-700 rounded-lg focus:ring-4 focus:ring-indigo-200 dark:focus:ring-indigo-900 hover:bg-indigo-800">
+                        Subscribe
+                      </button>
                     </div>
-                    <div class='mb-2'>
+                    <h5 class='mb-3 text-base font-bold tracking-tight text-gray-900 dark:text-white'>Subscribed: 0
+                    </h5>
+                    <div class='mb-3'>
                       <h6 class='text-sm tracking-tight text-gray-900 dark:text-white'>Organized By:</h6>
                       <p class='text-base font-bold tracking-tight text-gray-900 dark:text-white'>
                         <%= created_by %>
                       </p>
                     </div>
-                    <div class='mb-2'>
+                    <div class='mb-3'>
                       <h6 class='text-sm tracking-tight text-gray-900 dark:text-white'>Created By:</h6>
                       <p class='text-base font-bold tracking-tight text-gray-900 dark:text-white'>
                         <%= created_by %>
                       </p>
                     </div>
                     <br>
-                    <div class='mb-2'>
+                    <div class='mb-3'>
                       <p class='text-base font-sm tracking-tight text-gray-900 dark:text-white'>
                         <%= description %>
                       </p>
@@ -84,59 +91,53 @@
               <div id='notice-container' class="w-full py-8">
                 <form>
                   <div
-                    class="mb-4 w-full bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600">
-                    <div class="py-2 px-4 bg-white rounded-t-lg dark:bg-gray-800">
+                    class="w-full -ml-2.5 bg-gray-50 rounded-lg border-2 border-indigo-500 dark:bg-gray-700 dark:border-indigo-600">
+                    <div class="pt-2 bg-white rounded-t-lg dark:bg-gray-800">
                       <label for="comment" class="sr-only">Your comment</label>
-                      <textarea id="comment" rows="4"
-                        class="px-0 w-full text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                        placeholder="Write a comment..." required></textarea>
+                      <textarea id="comment" rows="2"
+                        class="px-4 w-full text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                        placeholder="Write a notice..." required></textarea>
                     </div>
-                    <div class="flex justify-between items-center py-2 px-3 border-t dark:border-gray-600">
+                    <div class="w-full flex justify-end items-center py-2 px-3 border-t dark:border-gray-600">
                       <button type="submit"
                         class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-indigo-700 rounded-lg focus:ring-4 focus:ring-indigo-200 dark:focus:ring-indigo-900 hover:bg-indigo-800">
-                        Post comment
+                        Post Notice
                       </button>
 
                     </div>
                   </div>
                 </form>
-                <% notics.forEach(({date, time, title, message, created_by})=> { %>
-                  <div class="px-5 border-l-2 border-indigo-500">
-                    <div class="flex gap-3 mx-3 items-center">
-                      <div class="mt-6 mb-2">
-                        <h5 class="text-sm font-bold tracking-tight text-gray-900 dark:text-white">
-                          <%= date %>
-                        </h5>
-                        <h5 class="text-xs font-bold tracking-tight text-gray-900 dark:text-white">
-                          <%= time %>
-                        </h5>
+                <div class="px-5 border-l-2 border-indigo-500">
+                  <% notics.forEach(({date, time, title, message, created_by})=> { %>
+                    <div>
+                      <div class="flex gap-3 mx-3 items-center">
+                        <div class="mt-6 mb-2">
+                          <h5 class="text-sm tracking-tight text-gray-900 dark:text-white">
+                            <%= dateFormat(date, 'd mmm "at" hh:mm' ) %>
+                          </h5>
+                        </div>
+                        <i class="ml-auto text-xs tracking-tight text-gray-900 dark:text-white">by <%= created_by %>
+                        </i>
                       </div>
-                      <h5 class="ml-auto text-xs font-bold tracking-tight text-gray-900 dark:text-white">by <%=
-                          created_by %>
-                      </h5>
+                      <div
+                        class="block p-6 max-w-42 bg-grey-900 rounded-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                        <p class="font-normal text-gray-700 dark:text-gray-400">
+                          <%= message %>
+                        </p>
+                      </div>
                     </div>
-
-                    <div
-                      class="block p-6 max-w-42 bg-grey-900 rounded-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                      <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        <%= title %>
-                      </h5>
-                      <p class="font-normal text-gray-700 dark:text-gray-400">
-                        <%= message %>
-                      </p>
-                    </div>
-                  </div>
-                  <% }) %>
+                    <% }) %>
+                </div>
               </div>
               <div id='discussion-container' class="w-full py-8 hidden">
                 <form>
-                  <div class="flex items-center py-2 px-3 bg-gray-50 rounded-lg dark:bg-gray-700">
+                  <div class="-ml-2.5 flex items-center bg-gray-50 rounded-lg">
                     <textarea id="chat" rows="1"
-                      class="block p-4 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
+                      class="block p-4 w-full text-sm text-gray-900 bg-white rounded-lg border-2 border-indigo-500  dark:border-indigo-600 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-800  dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
                       placeholder="Your message..."></textarea>
                     <button type="submit"
-                      class="inline-flex justify-center p-2 text-indigo-600 rounded-full cursor-pointer hover:bg-indigo-100 dark:text-indigo-500 dark:hover:bg-gray-600">
-                      <svg aria-hidden="true" class="w-6 h-6 rotate-90" fill="currentColor" viewBox="0 0 20 20"
+                      class="inline-flex justify-center ml-2 p-2 text-indigo-600 rounded-full cursor-pointer hover:bg-indigo-100 dark:text-indigo-500 dark:hover:bg-gray-600">
+                      <svg aria-hidden="true" class="w-10 h-10 rotate-90" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z">
@@ -146,8 +147,26 @@
                     </button>
                   </div>
                 </form>
-                <% discussions.forEach(({date, time, title, message, created_by})=> { %>
-                  <h1>Diss</h1>
+                <% discussions.forEach(({date, time, message, created_by})=> { %>
+                  <div class="px-5 border-l-2 border-indigo-500">
+                    <div class="flex gap-3 mx-3 items-center">
+                      <h5 class="text-xs font-bold tracking-tight text-gray-900 dark:text-white">
+                        <%= created_by %>
+                      </h5>
+                      <div class="ml-auto mt-6 mb-2">
+                        <i class="text-xs tracking-tight text-gray-900 dark:text-white">
+                          <%= dateFormat(date, 'hh:mm "on" d mmm' ) %>
+                        </i>
+                      </div>
+                    </div>
+
+                    <div
+                      class="block p-6 max-w-42 bg-grey-900 rounded-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                      <p class="font-normal text-gray-700 dark:text-gray-400">
+                        <%= message %>
+                      </p>
+                    </div>
+                  </div>
                   <% }) %>
               </div>
             </article>

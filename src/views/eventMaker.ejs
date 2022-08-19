@@ -1,0 +1,76 @@
+<%- include('./partials/metadata') %>
+
+  <%- include('./partials/navbar') %>
+
+    <main class="min-h-full flex justify-center">
+      <section class='flex justify-center items-center w-full h-screen gap-3'>
+        <div
+          class="w-full max-w-xl p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <form class="space-y-5" action="#">
+            <h5 class="text-xl font-medium text-gray-900 dark:text-white">Make a new event</h5>
+            <br>
+            <div>
+              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your
+                email</label>
+              <input type="email" name="email" id="email"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                placeholder="name@company.com" required>
+            </div>
+            <div>
+              <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your
+                title</label>
+              <input type="text" name="title" id="title"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                placeholder="name@company.com" required>
+            </div>
+            <div>
+              <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your
+                description</label>
+              <input type="text" name="description" id="description"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                placeholder="name@company.com" required>
+            </div>
+            <div>
+              <label for="date_start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your
+                date_start</label>
+              <input type="text" name="date_start" id="date_start"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                placeholder="name@company.com" required>
+            </div>
+            <div>
+              <label for="date_end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your
+                date_end</label>
+              <input type="text" name="date_end" id="date_end"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                placeholder="name@company.com" required>
+            </div>
+            <div>
+              <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your
+                location</label>
+              <input type="text" name="location" id="location"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                placeholder="name@company.com" required>
+            </div>
+            <div>
+              <label for="access" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your
+                access</label>
+              <input type="text" name="access" id="access"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                placeholder="name@company.com" required>
+            </div>
+            <div>
+              <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your
+                location</label>
+              <input type="text" name="location" id="location"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                placeholder="name@company.com" required>
+            </div>
+            <button type="submit"
+              class="w-full text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">Publish
+              Event</button>
+          </form>
+        </div>
+
+      </section>
+    </main>
+    <%- include('./partials/close') %>
