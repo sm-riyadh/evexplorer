@@ -1,18 +1,18 @@
-const delimiter = { delimiter: '?', openDelimiter: '{{', closeDelimiter: '}}' }
+import Event from '../models/event.js'
+import dateFormat from 'dateformat'
 
-export default app => {
-  app.get('/login', function (req, res, next) {
+export default router => {
+  router.get('/login', async (req, res, next) => {
     res.render('login')
   })
-  app.get('/search', function (req, res, next) {
-    res.render('search')
+  router.get('/event/:id', async (req, res, next) => {
+    const event = await Event.findOne({ id: req.params.id })
+
+    res.render('event', { event, dateFormat })
   })
-  app.get('/event', function (req, res, next) {
-    res.render('event')
-  })
-  app.get('/', function (req, res, next) {
-    console.log('first')
-    res.render('index')
-    // res.render('index', { delimiter })
+  router.get('/', async (req, res, next) => {
+    const events = await Event.find({})
+
+    res.render('index', { events, dateFormat })
   })
 }

@@ -1,401 +1,101 @@
-<!DOCTYPE html>
-<html lang='en'>
+<%- include('./partials/metadata') %>
 
-<head>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
-  <title>Events</title>
-  <link href='./style.css' rel='stylesheet'>
-  <script defer src='./flowbite.js'></script>
-  <script defer src="./datepicker.js"></script>
-</head>
+  <%- include('./partials/navbar') %>
 
-<body>
-
-  <div class='min-h-full'>
-    <nav class='bg-gray-200 fixed top-0 min-w-full'>
-      <div class='px-4 sm:px-6 lg:px-24'>
-        <div class='flex items-center justify-between h-16'>
-          <div class='flex items-center'>
-            <div class='flex-shrink-0'>
-              <img class='h-8 w-8' src='https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg' alt='Workflow'>
-            </div>
-            <div class='hidden md:block'>
-              <div class='ml-10 flex items-baseline space-x-4'>
-                <form>
-                  <label for='default-search'
-                    class='mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300'>Search</label>
-                  <div class='relative'>
-                    <div class='flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none'>
-                      <svg aria-hidden='true' class='w-4 h-4 text-gray-500 dark:text-gray-400' fill='none'
-                        stroke='currentColor' viewBox='0 0 24 24'>
-                        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='3'
-                          d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
-                      </svg>
-                    </div>
-                    <input type='search' id='default-search'
-                      class='block p-2 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                      placeholder='Search...' required>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div class='hidden md:block'>
-            <div class='ml-4 flex items-center md:ml-6'>
-              <!-- Current: 'bg-gray-900 text-white', Default: 'text-gray-300 hover:bg-gray-700 hover:text-white' -->
-              <a href='#' class='bg-gray-800 text-white px-4 mx-1.5 py-2 rounded-full text-sm font-medium'
-                aria-current='page'>Explore</a>
-              <a href='#' class='bg-gray-800 text-white px-4 mx-1.5 py-2 rounded-full text-sm font-medium'
-                aria-current='page'>Subscribes</a>
-
-              <button type='button'
-                class='bg-gray-800 p-2 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'>
-                <span class='sr-only'>View notifications</span>
-                <!-- Heroicon name: outline/bell -->
-                <svg xmlns='http://www.w3.org/2000/svg' class='w-5 h-5  text-gray-100 dark:text-gray-400' fill='none'
-                  viewBox='0 0 24 24' stroke-width='2' stroke='currentColor' aria-hidden='true'>
-                  <path stroke-linecap='round' stroke-linejoin='round'
-                    d='M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9' />
-                </svg>
-              </button>
-
-              <!-- Profile dropdown -->
-              <div class='ml-3 relative'>
-                <div>
-                  <button type='button'
-                    class='max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
-                    id='user-menu-button' aria-expanded='false' aria-haspopup='true'>
-                    <span class='sr-only'>Open user menu</span>
-                    <img class='h-8 w-8 rounded-full'
-                      src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-                      alt=''>
-                  </button>
-                </div>
-
-                <div
-                  class='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'
-                  role='menu' aria-orientation='vertical' aria-labelledby='user-menu-button' tabindex='-1'>
-                  <!-- Active: 'bg-gray-100', Not Active: ' -->
-                  <a href='#' class='block px-4 py-2 text-sm text-gray-700' role='menuitem' tabindex='-1'
-                    id='user-menu-item-0'>Your Profile</a>
-
-                  <a href='#' class='block px-4 py-2 text-sm text-gray-700' role='menuitem' tabindex='-1'
-                    id='user-menu-item-1'>Settings</a>
-
-                  <a href='#' class='block px-4 py-2 text-sm text-gray-700' role='menuitem' tabindex='-1'
-                    id='user-menu-item-2'>Sign out</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class='-mr-2 flex md:hidden'>
-            <!-- Mobile menu button -->
-            <button type='button'
-              class='bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
-              aria-controls='mobile-menu' aria-expanded='false'>
-              <span class='sr-only'>Open main menu</span>
-              <!--
-              Heroicon name: outline/menu
-
-              Menu open: 'hidden', Menu closed: 'block'
-            -->
-              <svg class='block h-6 w-6' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'
-                stroke-width='2' stroke='currentColor' aria-hidden='true'>
-                <path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16M4 12h16M4 18h16' />
-              </svg>
-              <!--
-              Heroicon name: outline/x
-
-              Menu open: 'block', Menu closed: 'hidden'
-            -->
-              <svg class='hidden h-6 w-6' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'
-                stroke-width='2' stroke='currentColor' aria-hidden='true'>
-                <path stroke-linecap='round' stroke-linejoin='round' d='M6 18L18 6M6 6l12 12' />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- Mobile menu, show/hide based on menu state. -->
-        <div class='md:hidden' id='mobile-menu'>
-          <div class='px-2 pt-2 pb-3 space-y-1 sm:px-3'>
-            <!-- Current: 'bg-gray-900 text-white', Default: 'text-gray-300 hover:bg-gray-700 hover:text-white' -->
-            <a href='#' class='bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium'
-              aria-current='page'>Dashboard</a>
-
-            <a href='#'
-              class='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'>Team</a>
-
-            <a href='#'
-              class='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'>Projects</a>
-
-            <a href='#'
-              class='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'>Calendar</a>
-
-            <a href='#'
-              class='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'>Reports</a>
-          </div>
-          <div class='pt-4 pb-3 border-t border-gray-700'>
-            <div class='flex items-center px-5'>
-              <div class='flex-shrink-0'>
-                <img class='h-10 w-10 rounded-full'
-                  src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-                  alt=''>
-              </div>
-              <div class='ml-3'>
-                <div class='text-base font-medium leading-none text-white'>Tom Cook</div>
-                <div class='text-sm font-medium leading-none text-gray-400'>tom@example.com</div>
-              </div>
-              <button type='button'
-                class='ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'>
-                <span class='sr-only'>View notifications</span>
-                <!-- Heroicon name: outline/bell -->
-                <svg class='h-6 w-6' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='2'
-                  stroke='currentColor' aria-hidden='true'>
-                  <path stroke-linecap='round' stroke-linejoin='round'
-                    d='M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9' />
-                </svg>
-              </button>
-            </div>
-            <div class='mt-3 px-2 space-y-1'>
-              <a href='#'
-                class='block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700'>Your
-                Profile</a>
-
-              <a href='#'
-                class='block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700'>Settings</a>
-
-              <a href='#'
-                class='block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700'>Sign
-                out</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-    <main class="flex justify-center">
-      <div class='min-vw-full py-4 sm:px-4 lg:px-4'>
-        <!-- Replace with your content -->
+    <main class="pt-16">
+      <div class='min-vw-full py-2 sm:px-2 lg:px-2'>
         <div class='px-4 sm:px-0'>
-          <div class='bg-cover bg-center bg-[url("img.jpg")] rounded-2xl h-96'>
-          </div>
+          <div class='bg-cover bg-center bg-[url("img.jpg")] rounded-2xl h-80'> </div>
         </div>
-        <!-- /End replace -->
       </div>
 
       <div class="flex justify-center">
         <section class='max-w-72 grid grid-cols-5 gap-3 mx-24'>
           <article class='w-full col-span-4'>
-            <h5 class='mx-5 mt-3 mb-2 text-xs font-bold tracking-tight text-gray-400  dark:text-white'>FEATURED EVENTS
-            </h5>
+            <form class='mt-2 mb-4'>
+              <label for='default-search'
+                class='mb-2 text-sm font-medium  text-gray-900 sr-only dark:text-gray-300'>Search</label>
+              <div class='relative'>
+                <div class='flex absolute inset-y-0 left-0 items-center ml-6 pointer-events-none'>
+                  <svg aria-hidden='true' class='w-6 h-6 text-gray-500 dark:text-gray-400' fill='none'
+                    stroke='currentColor' viewBox='0 0 24 24'>
+                    <path stroke-linecap='round' stroke-linejoin='round' stroke-width='3'
+                      d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+                  </svg>
+                </div>
+                <input type='search' id='default-search'
+                  class='block p-4 pl-16 w-full text-2xl text-gray-900 rounded-lg border-0 focus:ring-0 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white'
+                  placeholder='Search...' required>
+              </div>
+            </form>
             <div class='h-auto flex flex-wrap'>
-              <a href='/dad'>
-                <div
-                  class='max-w-md bg-white rounded-lg border border-gray-200 shadow-md m-3 dark:bg-gray-800 dark:border-gray-700'>
-                  <img class='rounded-t-lg' src='img.jpg' alt='' />
-                  <div class='p-5'>
-                    <h5 class='mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white'>Title of the Event
-                    </h5>
-                    <p class='mb-3 font-normal text-gray-700 dark:text-gray-400'>Here are the biggest enterprise
-                      technology
-                      acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <div class='flex justify-end items-center'>
-                      <a href='/adwad'
-                        class='inline-flex items-center py-2 px-4 text-sm font-bold text-center text-white bg-blue-700 rounded-xl hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-                        Subscribe
-                      </a>
+              <% events.forEach(({id, title, date_start, date_end, location,
+                time_start,time_end,privillege,notics,discussions})=> { %>
+                <a href='/event/<%= id %>'>
+                  <div
+                    class='w-64 max-w-md bg-white rounded-lg border border-gray-200 shadow-md m-3 dark:bg-gray-800 dark:border-gray-700'>
+                    <div class='rounded-t-lg bg-cover bg-center bg-[url("img.jpg")] h-28'> </div>
+                    <div class='p-5'>
+                      <p class='mb-3 font-normal text-gray-700 dark:text-gray-400'>
+                        <%= dateFormat(date_start, 'ddd, d mmm' ) %> - <%= dateFormat(date_end, 'd mmm' ) %>
+                      </p>
+                      <h5 class='mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white'>
+                        <%= title %>
+                      </h5>
+                      <p class='mb-3 text-sm font-normal text-gray-700 dark:text-gray-400'>
+                        <%= location %>
+                          <br>
+                          Subscribed: <%= location %>
+                      </p>
+                      <div class='w-full flex justify-center items-center'>
+                        <a href='/adwad'
+                          class='mr-1 w-full justify-center items-center py-2 px-4 text-sm font-bold text-center text-white bg-blue-700 rounded-xl hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+                          Subscribe
+                        </a>
+                        <a href='/adwad'
+                          class='ml-1 items-center py-2 px-4 text-sm font-bold text-center text-black bg-gray-300 rounded-xl hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+                          Share
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </a>
-              <a href='/dad'>
-                <div
-                  class='max-w-md bg-white rounded-lg border border-gray-200 shadow-md m-3 dark:bg-gray-800 dark:border-gray-700'>
-                  <img class='rounded-t-lg' src='img.jpg' alt='' />
-                  <div class='p-5'>
-                    <h5 class='mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white'>Title of the Event
-                    </h5>
-                    <p class='mb-3 font-normal text-gray-700 dark:text-gray-400'>Here are the biggest enterprise
-                      technology
-                      acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <div class='flex justify-end items-center'>
-                      <a href='/adwad'
-                        class='inline-flex items-center py-2 px-4 text-sm font-bold text-center text-white bg-blue-700 rounded-xl hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-                        Subscribe
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <a href='/dad'>
-                <div
-                  class='max-w-md bg-white rounded-lg border border-gray-200 shadow-md m-3 dark:bg-gray-800 dark:border-gray-700'>
-                  <img class='rounded-t-lg' src='img.jpg' alt='' />
-                  <div class='p-5'>
-                    <h5 class='mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white'>Title of the Event
-                    </h5>
-                    <p class='mb-3 font-normal text-gray-700 dark:text-gray-400'>Here are the biggest enterprise
-                      technology
-                      acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <div class='flex justify-end items-center'>
-                      <a href='/adwad'
-                        class='inline-flex items-center py-2 px-4 text-sm font-bold text-center text-white bg-blue-700 rounded-xl hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-                        Subscribe
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <a href='/dad'>
-                <div
-                  class='max-w-md bg-white rounded-lg border border-gray-200 shadow-md m-3 dark:bg-gray-800 dark:border-gray-700'>
-                  <img class='rounded-t-lg' src='img.jpg' alt='' />
-                  <div class='p-5'>
-                    <h5 class='mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white'>Title of the Event
-                    </h5>
-                    <p class='mb-3 font-normal text-gray-700 dark:text-gray-400'>Here are the biggest enterprise
-                      technology
-                      acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <div class='flex justify-end items-center'>
-                      <a href='/adwad'
-                        class='inline-flex items-center py-2 px-4 text-sm font-bold text-center text-white bg-blue-700 rounded-xl hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-                        Subscribe
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <a href='/dad'>
-                <div
-                  class='max-w-md bg-white rounded-lg border border-gray-200 shadow-md m-3 dark:bg-gray-800 dark:border-gray-700'>
-                  <img class='rounded-t-lg' src='img.jpg' alt='' />
-                  <div class='p-5'>
-                    <h5 class='mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white'>Title of the Event
-                    </h5>
-                    <p class='mb-3 font-normal text-gray-700 dark:text-gray-400'>Here are the biggest enterprise
-                      technology
-                      acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <div class='flex justify-end items-center'>
-                      <a href='/adwad'
-                        class='inline-flex items-center py-2 px-4 text-sm font-bold text-center text-white bg-blue-700 rounded-xl hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-                        Subscribe
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <a href='/dad'>
-                <div
-                  class='max-w-md bg-white rounded-lg border border-gray-200 shadow-md m-3 dark:bg-gray-800 dark:border-gray-700'>
-                  <img class='rounded-t-lg' src='img.jpg' alt='' />
-                  <div class='p-5'>
-                    <h5 class='mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white'>Title of the Event
-                    </h5>
-                    <p class='mb-3 font-normal text-gray-700 dark:text-gray-400'>Here are the biggest enterprise
-                      technology
-                      acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <div class='flex justify-end items-center'>
-                      <a href='/adwad'
-                        class='inline-flex items-center py-2 px-4 text-sm font-bold text-center text-white bg-blue-700 rounded-xl hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-                        Subscribe
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <a href='/dad'>
-                <div
-                  class='max-w-md bg-white rounded-lg border border-gray-200 shadow-md m-3 dark:bg-gray-800 dark:border-gray-700'>
-                  <img class='rounded-t-lg' src='img.jpg' alt='' />
-                  <div class='p-5'>
-                    <h5 class='mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white'>Title of the Event
-                    </h5>
-                    <p class='mb-3 font-normal text-gray-700 dark:text-gray-400'>Here are the biggest enterprise
-                      technology
-                      acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <div class='flex justify-end items-center'>
-                      <a href='/adwad'
-                        class='inline-flex items-center py-2 px-4 text-sm font-bold text-center text-white bg-blue-700 rounded-xl hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-                        Subscribe
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </a>
-              <a href='/dad'>
-                <div
-                  class='max-w-md bg-white rounded-lg border border-gray-200 shadow-md m-3 dark:bg-gray-800 dark:border-gray-700'>
-                  <img class='rounded-t-lg' src='img.jpg' alt='' />
-                  <div class='p-5'>
-                    <h5 class='mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white'>Title of the Event
-                    </h5>
-                    <p class='mb-3 font-normal text-gray-700 dark:text-gray-400'>Here are the biggest enterprise
-                      technology
-                      acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <div class='flex justify-end items-center'>
-                      <a href='/adwad'
-                        class='inline-flex items-center py-2 px-4 text-sm font-bold text-center text-white bg-blue-700 rounded-xl hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-                        Subscribe
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </a>
+                </a>
+                <% }); %>
             </div>
           </article>
           <article>
-            <h5 class=' mx-5 mt-3 mb-2 text-xs font-bold tracking-tight text-gray-400 dark:text-white'>UPCOMING EVENTS
+            <h5 class='mx-5 mt-3 mb-2 text-xs font-bold tracking-tight text-gray-400 dark:text-white'>FILTERS
             </h5>
-            <div class='flex flex-col'>
-              <a href='/dad'>
-                <div
-                  class='w-72 bg-white rounded-lg border border-gray-200 shadow-md m-3 dark:bg-gray-800 dark:border-gray-700'>
-                  <div class='rounded-t-lg h-12 w-full bg-cover bg-center bg-[url("img.jpg")]'></div>
-                  <div class='px-4 py-2'>
-                    <h5 class='mb-2 text-base font-bold tracking-tight text-gray-900 dark:text-white'>Title of the Event
-                    </h5>
-                    <p class='mb-3 font-normal text-gray-700 dark:text-gray-400'>Here are the biggest enterprise
-                      technology
-                      acquisitions of 2021 so far, in reverse chronological order.</p>
+            <div class='w-72 my-3 dark:bg-gray-800'>
+              <div class='flex flex-col gap-4 px-4 py-2'>
+                <div class="relative">
+                  <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+                      viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd"
+                        d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                        clip-rule="evenodd"></path>
+                    </svg>
                   </div>
+                  <input datepicker datepicker-buttons datepicker-autohide datepicker-title="Pick a day"
+                    datepicker-format="D, d M yyyy" type="text"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Select date">
                 </div>
-              </a>
-              <a href='/dad'>
-                <div
-                  class='w-72 bg-white rounded-lg border border-gray-200 shadow-md m-3 dark:bg-gray-800 dark:border-gray-700'>
-                  <div class='rounded-t-lg h-12 w-full bg-cover bg-center bg-[url("img.jpg")]'></div>
-                  <div class='px-4 py-2'>
-                    <h5 class='mb-2 text-base font-bold tracking-tight text-gray-900 dark:text-white'>Title of the Event
-                    </h5>
-                    <p class='mb-3 font-normal text-gray-700 dark:text-gray-400'>Here are the biggest enterprise
-                      technology
-                      acquisitions of 2021 so far, in reverse chronological order.</p>
-                  </div>
-                </div>
-              </a>
-              <a href='/dad'>
-                <div
-                  class='w-72 bg-white rounded-lg border border-gray-200 shadow-md m-3 dark:bg-gray-800 dark:border-gray-700'>
-                  <div class='rounded-t-lg h-12 w-full bg-cover bg-center bg-[url("img.jpg")]'></div>
-                  <div class='px-4 py-2'>
-                    <h5 class='mb-2 text-base font-bold tracking-tight text-gray-900 dark:text-white'>Title of the Event
-                    </h5>
-                    <p class='mb-3 font-normal text-gray-700 dark:text-gray-400'>Here are the biggest enterprise
-                      technology
-                      acquisitions of 2021 so far, in reverse chronological order.</p>
-                  </div>
-                </div>
-              </a>
+                <select id="countries"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option selected>Choose Location</option>
+                  <option value="US">United States</option>
+                  <option value="CA">Canada</option>
+                  <option value="FR">France</option>
+                  <option value="DE">Germany</option>
+                </select>
+              </div>
             </div>
           </article>
         </section>
       </div>
+      </div>
     </main>
-  </div>
 
-</body>
-
-</html>
+    <%- include('./partials/close') %>

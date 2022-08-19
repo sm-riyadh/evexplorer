@@ -3,3 +3,18 @@
 
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+.tab-active.tab-text {
+  @apply text-blue-600 rounded-t-lg border-b-2 border-blue-600 dark:text-blue-500 dark:border-blue-500
+}
+
+  /* & .tab-icon {
+    @apply text-blue-600 dark:text-blue-500 dark:group-hover:text-blue-300
+  } */
+.tab-inactive.tab-text {
+  @apply hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300
+
+  /* .tab-icon {
+    @apply text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300
+  } */
+}
