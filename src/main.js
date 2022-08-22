@@ -1,18 +1,17 @@
 import './db/mongoose.js'
 import express, { json, urlencoded } from 'express'
-import fs from 'fs'
+import cookieParser from 'cookie-parser'
+import sessions from 'express-session'
 import logger from 'morgan'
 import routes from './routes/index.js'
 import { fileURLToPath } from 'url'
 import { dirname, join, resolve } from 'path'
-import { createServer as createViteServer } from 'vite'
 
 const host = process.env.HOST || 'localhost'
 const port = process.env.PORT || 80
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const app = express()
-
 
 // view engine setup
 app.use(logger('dev'))
@@ -26,7 +25,17 @@ app.use(express.static(join(__dirname, '../assets')))
 app.set('views', join(__dirname, '/views'))
 app.set('view engine', 'ejs')
 
-routes(app)
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(sessions({
+  secret: "sheeeesh",
+  saveUninitialized: true,
+  cookie: { maxAge: oneDay },
+  resave: false
+}));
+app.use(cookieParser());
+
+Object.values(routes).map(route => app.use(route))
+
 
 // // // catch 404 and forward to error handler
 // app.use((req, res, next) => {
@@ -43,7 +52,7 @@ routes(app)
 
 //   // render the error page
 //   res.status(err.status || 500)
-//   res.render('404')
+//   return res.render('404')
 // })
 
 // const vite = await createViteServer({
@@ -54,6 +63,6 @@ routes(app)
 
 // Server Config
 app.listen(port, () => {
-  // console.clear()
+  console.clear()
   console.log(`> Time: ${new Date()}\n> Host: ${host}\n> Post: ${port} \n----------------------------------------`)
 })

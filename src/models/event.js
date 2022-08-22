@@ -5,41 +5,66 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+  },
   date_start: {
-    type: Date
+    type: Date,
+    required: true
   },
   date_end: {
     type: Date
   },
   location: {
-    type: String
-  },
-  time_start: {
-    type: Date
-  },
-  time_end: {
-    type: Date
-  },
-  privillege: {
     type: String,
   },
-  notics: [],
-  discussions: [],
-})
-// {
-//   date: {
-//     type: Date,
-//   },
-//   time: {
-//     type: Date,
-//   },
-//   title: {
-//     type: String,
-//   },
-//   message: {
-//     type: String,
-//   }
-// }
-const event = mongoose.model('event', eventSchema)
+  access: {
+    type: String,
+  },
+  image: {
+    type: String,
+  },
+  facebook: {
+    type: String,
+  },
+  notics: [{
+    date: {
+      type: Date,
+      required: true
+    },
+    title: {
 
-export default event
+      type: String,
+      required: true
+    },
+    message: {
+      type: String,
+      required: true
+    },
+    created_by: {
+      type: String,
+      required: true
+    },
+  }],
+  discussions: [{
+    date: {
+      type: Date,
+      required: true
+    },
+    title: {
+
+      type: String,
+      required: true
+    },
+    message: {
+      type: String,
+      required: true
+    },
+    created_by: {
+      type: String,
+      required: true
+    },
+  }],
+})
+
+export default mongoose.model('event', eventSchema)

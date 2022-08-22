@@ -1,6 +1,6 @@
-<%- include('./partials/metadata') %>
+<%- include('../partials/metadata') %>
 
-  <%- include('./partials/navbar') %>
+  <%- include('../partials/navbar') %>
     <% const {id, title, date_start, date_end, location, description, access, notics, discussions, created_by}=event %>
 
       <main class='pt-16'>
@@ -193,4 +193,4 @@
           document.getElementById(`${tab}-container`).classList.remove('hidden')
         }
       </script>
-      <%- include('./partials/close') %>
+      <%- include('../partials/close') %>
