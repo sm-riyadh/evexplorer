@@ -36,31 +36,6 @@ app.use(cookieParser());
 
 Object.values(routes).map(route => app.use(route))
 
-
-// // // catch 404 and forward to error handler
-// app.use((req, res, next) => {
-//   const err = new Error('Not Found')
-//   err.status = 404
-//   next(err)
-// })
-
-// // // error handler
-// app.use((err, req, res, next) => {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message
-//   res.locals.error = req.app.get('env') === 'development' ? err : {}
-
-//   // render the error page
-//   res.status(err.status || 500)
-//   return res.render('404')
-// })
-
-// const vite = await createViteServer({
-//   server: { middlewareMode: true },
-//   appType: 'custom'
-// })
-// app.use(vite.middlewares)
-
 // Server Config
 app.listen(port, () => {
   console.clear()

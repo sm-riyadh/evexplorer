@@ -1,10 +1,10 @@
 {
-  "name": "nodejs-tailwind",
+  "name": "Evexplorer",
   "version": "1.0.0",
-  "description": "Uses TailwindCSS in Node.js with Express",
+  "description": "Event Exploring Website",
   "main": "./src/main.js",
-  "author": "",
-  "license": "ISC",
+  "author": "SM Riyadh",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "nodemon ./src/main.js",
@@ -22,8 +22,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.3",
     "flowbite": "^1.5.2",
-    "mongoose": "^6.5.2",
-    "vite-plugin-ejs": "^1.5.0"
+    "mongoose": "^6.5.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
@@ -36,8 +35,6 @@
     "postcss-import": "^14.1.0",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
-    "tailwindcss": "^3.1.8",
-    "vitawind": "^2.2.4",
-    "vite": "^3.0.7"
+    "tailwindcss": "^3.1.8"
   }
 }
