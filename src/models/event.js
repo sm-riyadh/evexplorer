@@ -27,21 +27,22 @@ const eventSchema = new mongoose.Schema({
   facebook: {
     type: String,
   },
+  subscribed: {
+    type: Number,
+    default: 0
+  },
+  organizer: {
+    type: String,
+  },
+  created_by: {
+    type: String,
+  },
   notics: [{
     date: {
       type: Date,
       required: true
     },
-    title: {
-
-      type: String,
-      required: true
-    },
     message: {
-      type: String,
-      required: true
-    },
-    created_by: {
       type: String,
       required: true
     },
@@ -49,11 +50,6 @@ const eventSchema = new mongoose.Schema({
   discussions: [{
     date: {
       type: Date,
-      required: true
-    },
-    title: {
-
-      type: String,
       required: true
     },
     message: {

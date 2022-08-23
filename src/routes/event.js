@@ -17,9 +17,9 @@ router.get('/event-creater', async (req, res, next) => {
 router.post('/event-creater', async (req, res, next) => {
   if (!req.session.userid) return res.redirect('/signin')
 
-  const { title, date_start, date_end, location, access, image, description, facebook } = req.body
+  const { title, date_start, date_end, location, access, image, description, facebook, organizer } = req.body
 
-  Event({ title, date_start, date_end, location, access, image, description, facebook }).save()
+  Event({ title, date_start, date_end, location, access, image, description, facebook, organizer, created_by: req.session.profile.username }).save()
 
   return res.redirect('/')
 })
@@ -29,25 +29,63 @@ router.post('/event-creater', async (req, res, next) => {
 router.get('/subscribe', async (req, res, next) => {
   if (!req.session.userid) return res.redirect('/signin')
 
-  const event = await Event.findOne({ id: req.params.id })
+  const { subscribed } = await User.findById(req.session.userid)
 
-  return res.render('pages/subscribe', { event, dateFormat })
+  const events = await Event.find({ _id: { $in: subscribed } })
+
+  return res.render('pages/subscribe', { events, dateFormat })
 })
 router.get('/subscribe-now', async (req, res, next) => {
   if (!req.session.userid) return res.redirect('/signin')
+
+  await Event.findByIdAndUpdate(req.query.event, { $inc: { subscribed: 1 } })
   await User.findByIdAndUpdate(req.session.userid, { $push: { subscribed: req.query.event } })
 
-  return res.redirect('/')
+  return res.redirect('/subscribe')
 })
+router.get('/unsubscribe-now', async (req, res, next) => {
+  if (!req.session.userid) return res.redirect('/signin')
 
+  await Event.findByIdAndUpdate(req.query.event, { $inc: { subscribed: -1 } })
+  await User.findByIdAndUpdate(req.session.userid, { $pull: { subscribed: req.query.event } })
+
+  return res.redirect('/subscribe')
+})
 // Event
 
 router.get('/event/:id', async (req, res, next) => {
   if (!req.session.userid) return res.redirect('/signin')
 
-  const event = await Event.findOne({ id: req.params.id })
+  const event = await Event.findById(req.params.id)
 
-  return res.render('pages/event', { event, dateFormat })
+  return res.render('pages/event', { event, dateFormat, profile: req.session.profile })
+})
+router.post('/event/:id/post', async (req, res, next) => {
+  if (!req.session.userid) return res.redirect('/signin')
+  const { type, message } = req.body
+
+  if (type === 'notices') {
+    await Event.findByIdAndUpdate(req.params.id, {
+      $push: {
+        notics: {
+          date: new Date(),
+          message,
+        }
+      }
+    })
+  } else if (type === 'discussions') {
+    await Event.findByIdAndUpdate(req.params.id, {
+      $push: {
+        discussions: {
+          date: new Date(),
+          message,
+          created_by: req.session.profile.username,
+        }
+      }
+    })
+  }
+
+  return res.redirect('/event/' + req.params.id + '?tab=' + type)
 })
 router.get('/home', async (req, res, next) => {
   if (!req.session.userid) return res.redirect('/signin')

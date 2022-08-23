@@ -1,0 +1,58 @@
+<%- include('../partials/metadata') %>
+
+  <%- include('../partials/navbar') %>
+
+    <main class="pt-16">
+      <div class="flex justify-center">
+        <section class='max-w-72 w-full flex justify-start mx-24'>
+          <article class='w-full'>
+            <h5 class='mx-5 mt-5 mb-2 text-xs font-bold tracking-tight text-gray-400 dark:text-white'>SUBSCRIBED LIST
+            </h5>
+            <div class='h-auto flex flex-wrap'>
+              <% if(locals.events) events.forEach(({id, title, date_start, date_end, location,
+                time_start,time_end,privillege,notics,discussions})=> { %>
+                <a href='/event/<%= id %>'>
+                  <div
+                    class='w-64 max-w-md bg-white rounded-lg border border-gray-200 shadow-md m-3 dark:bg-gray-800 dark:border-gray-700'>
+                    <div class='rounded-t-lg bg-cover bg-center bg-[url("img.jpg")] h-28'> </div>
+                    <div class='p-5'>
+                      <p class='mb-3 font-normal text-gray-700 dark:text-gray-400'>
+                        <%= dateFormat(date_start, 'ddd, d mmm' ) %> - <%= dateFormat(date_end, 'd mmm' ) %>
+                      </p>
+                      <h5 class='mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white'>
+                        <%= title %>
+                      </h5>
+                      <p class='mb-3 text-sm font-normal text-gray-700 dark:text-gray-400'>
+                        <%= location %>
+                          <br>
+                          Subscribed: <%= location %>
+                      </p>
+                      <div class='w-full flex justify-center items-center'>
+                        <a href='//<%=baseURL%>/unsubscribe-now?event=<%= id %>'
+                          class='mr-1 w-full justify-center items-center py-2 px-4 text-sm font-bold text-center text-white bg-red-500 rounded-xl hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800'>
+                          Unsubscribe
+                        </a>
+                        <button onclick='copy("<%=baseURL%>/event/<%= id %>")'
+                          class='ml-1 items-center py-2 px-4 text-sm font-bold text-center text-black bg-gray-300 rounded-xl hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800'>
+                          Share
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <% }); %>
+            </div>
+          </article>
+        </section>
+      </div>
+      </div>
+    </main>
+    <script>
+      const copy = content => {
+        console.log(content)
+        navigator.clipboard.writeText(content);
+
+        alert("Copied Link: " + content);
+      }
+    </script>
+    <%- include('../partials/close') %>

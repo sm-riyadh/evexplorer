@@ -29,7 +29,7 @@
               </div>
             </form>
             <div class='h-auto flex flex-wrap'>
-              <% events.forEach(({id, title, date_start, date_end, location,
+              <% if(locals.events) events.forEach(({id, title, date_start, date_end, location,
                 time_start,time_end,privillege,notics,discussions})=> { %>
                 <a href='/event/<%= id %>'>
                   <div

@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
 import { User } from '../models/index.js'
+import { Event } from '../models/index.js'
 import dateFormat from 'dateformat'
 
 const router = Router()
