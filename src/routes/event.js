@@ -12,18 +12,31 @@ const router = Router()
 router.get('/event-creater', async (req, res, next) => {
   if (!req.session.userid) return res.redirect('/signin')
 
-  return res.render('pages/eventCreater')
+  return res.render('pages/eventCreater', { profile: req.session.profile })
 })
 router.post('/event-creater', async (req, res, next) => {
   if (!req.session.userid) return res.redirect('/signin')
 
-  const { title, date_start, date_end, location, access, image, description, facebook, organizer } = req.body
+  const { title, date_start, date_end, location, access, image, description, catagory, facebook, organizer } = req.body
 
-  Event({ title, date_start, date_end, location, access, image, description, facebook, organizer, created_by: req.session.profile.username }).save()
+  Event({ title, date_start, date_end, location, access, image, description, catagory, facebook, organizer, created_by: req.session.profile.username }).save()
 
-  return res.redirect('/')
+  return res.redirect('/event-own')
 })
+router.get('/event-own', async (req, res, next) => {
+  if (!req.session.userid) return res.redirect('/signin')
 
+  const events = await Event.find({ created_by: { $eq: req.session.profile.username } })
+
+  return res.render('pages/eventOwn', { events, dateFormat, profile: req.session.profile })
+})
+router.get('/event-delete', async (req, res, next) => {
+  if (!req.session.userid) return res.redirect('/signin')
+
+  await Event.findByIdAndDelete(req.query.event)
+
+  return res.redirect('/event-own')
+})
 // Subscribe
 
 router.get('/subscribe', async (req, res, next) => {
@@ -33,7 +46,7 @@ router.get('/subscribe', async (req, res, next) => {
 
   const events = await Event.find({ _id: { $in: subscribed } })
 
-  return res.render('pages/subscribe', { events, dateFormat })
+  return res.render('pages/subscribe', { events, dateFormat, profile: req.session.profile })
 })
 router.get('/subscribe-now', async (req, res, next) => {
   if (!req.session.userid) return res.redirect('/signin')
@@ -90,11 +103,26 @@ router.post('/event/:id/post', async (req, res, next) => {
 router.get('/home', async (req, res, next) => {
   if (!req.session.userid) return res.redirect('/signin')
 
+  const { search, catagory, date, location } = req.query
+
+  let params = {
+    title: { $regex: new RegExp(search, 'i') },
+    location: { $regex: new RegExp(location, 'i') },
+    catagory: catagory === 'All' ? undefined : catagory,
+    date_start: date ? date : undefined
+  }
+  Object.keys(params).forEach(key => {
+    if (params[key] === undefined) {
+      delete params[key];
+    }
+  })
+
   const { subscribed } = await User.findById(req.session.userid)
+  const events = await Event.find({ _id: { $nin: subscribed }, created_by: { $ne: req.session.profile.username }, ...params })
 
-  const events = await Event.find({ _id: { $nin: subscribed } })
-
-  return res.render('pages/home', { events, dateFormat })
+  return res.render('pages/home', {
+    events, dateFormat, profile: req.session.profile, params: { search, catagory, date, location }
+  })
 })
 
 

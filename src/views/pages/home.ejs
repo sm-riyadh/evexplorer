@@ -1,6 +1,6 @@
 <%- include('../partials/metadata') %>
 
-  <%- include('../partials/navbar') %>
+  <%- include('../partials/navbar', { profile }) %>
 
     <main class="pt-16">
       <div class='min-vw-full py-2 sm:px-2 lg:px-2'>
@@ -10,9 +10,9 @@
       </div>
 
       <div class="flex justify-center">
-        <section class='max-w-72 grid grid-cols-5 gap-3 mx-24'>
+        <form action="/home" method='get' class='max-w-72 grid grid-cols-5 gap-3 mx-24'>
           <article class='w-full col-span-4'>
-            <form class='mt-2 mb-4'>
+            <div class='mt-2 mb-4'>
               <label for='default-search'
                 class='mb-2 text-sm font-medium  text-gray-900 sr-only dark:text-gray-300'>Search</label>
               <div class='relative'>
@@ -23,32 +23,34 @@
                       d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
                   </svg>
                 </div>
-                <input type='search' id='default-search'
+                <input type='search' onchange='this.form.submit()' name='search' value='<%= params.search %>'
                   class='block p-4 pl-16 w-full text-2xl text-gray-900 rounded-lg border-0 focus:ring-0 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white'
                   placeholder='Search...' required>
               </div>
-            </form>
+            </div>
             <div class='h-auto flex flex-wrap'>
               <% if(locals.events) events.forEach(({id, title, date_start, date_end, location,
-                time_start,time_end,privillege, image, facebook, organizer, notics,discussions})=> { %>
+                time_start,time_end,privillege, image, facebook, catagory, organizer, notics,discussions})=> { %>
                 <a href='/event/<%= id %>'>
                   <div
                     class='w-64 max-w-md bg-white rounded-lg border border-gray-200 shadow-md m-3 dark:bg-gray-800 dark:border-gray-700'>
                     <div class='rounded-t-lg bg-cover bg-center h-28' style='background-image: url("<%= image %>")'>
                     </div>
-                    <div class='p-5'>
-                      <p class='mb-3 font-normal text-gray-700 dark:text-gray-400'>
-                        <%= dateFormat(date_start, 'ddd, d mmm' ) %> - <%= dateFormat(date_end, 'd mmm' ) %>
-                      </p>
-                      <h5 class='mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white'>
-                        <%= title %>
-                      </h5>
-                      <p class='mb-3 text-sm font-normal text-gray-700 dark:text-gray-400'>
-                        <%= location %>
-                      </p>
-                      <p class='mb-3 text-xs font-normal text-gray-700 dark:text-gray-400'>
-                        <%= organizer %>
-                      </p>
+                    <div class='p-4'>
+                      <div class='p-2'>
+                        <p class='mb-3 text-xs font-normal text-gray-700 dark:text-gray-400'>
+                          <%= dateFormat(date_start, 'ddd, d mmm' ) %> - <%= dateFormat(date_end, 'd mmm' ) %>
+                              <span class='float-right font-medium text-indigo-500'>
+                                <%= catagory %>
+                              </span>
+                        </p>
+                        <h5 class='mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white'>
+                          <%= title %>
+                        </h5>
+                        <p class='mb-3 text-sm font-normal text-gray-700 dark:text-gray-400'>
+                          <%= location %>
+                        </p>
+                      </div>
                       <div class='w-full flex justify-center items-center'>
                         <a href='//<%=baseURL%>/subscribe-now?event=<%= id %>'
                           class='mr-1 w-full justify-center items-center py-2 px-4 text-sm font-bold text-center text-white bg-indigo-700 rounded-xl hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800'>
@@ -70,32 +72,28 @@
             </h5>
             <div class='w-72 my-3 dark:bg-gray-800'>
               <div class='flex flex-col gap-4 px-4 py-2'>
-                <div class="relative">
-                  <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
-                      viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd"
-                        d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                        clip-rule="evenodd"></path>
-                    </svg>
-                  </div>
-                  <input datepicker datepicker-buttons datepicker-autohide datepicker-title="Pick a day"
-                    datepicker-format="D, d M yyyy" type="text"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
-                    placeholder="Select date">
-                </div>
-                <select id="countries"
+                <input type="location" name="location" value='<%= params.location %>' onchange="this.form.submit()"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Location" required>
+                <select name="catagory" onchange="this.form.submit()"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
-                  <option selected>Choose Location</option>
-                  <option value="US">United States</option>
-                  <option value="CA">Canada</option>
-                  <option value="FR">France</option>
-                  <option value="DE">Germany</option>
+                  <option value="All" <%=params.catagory==="All" ? "selected" : null %>>All Catagory</option>
+                  <option value="Party" <%=params.catagory==="Party" ? "selected" : null %>>Party</option>
+                  <option value="Festival" <%=params.catagory==="Festival" ? "selected" : null %>>Festival</option>
+                  <option value="Sports" <%=params.catagory==="Sports" ? "selected" : null %>>Sports</option>
+                  <option value="Contest" <%=params.catagory==="Contest" ? "selected" : null %>>Contest</option>
+                  <option value="Concert" <%=params.catagory==="Concert" ? "selected" : null %>>Concert</option>
+                  <option value="Others" <%=params.catagory==="Others" ? "selected" : null %>>Others</option>
                 </select>
+                <input type="date" name="date" value='<%= params.date %>' onchange="this.form.submit()"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Date" required>
               </div>
             </div>
-          </article>
-        </section>
+      </div>
+      </div>
+      </article>
+      </section>
       </div>
       </div>
     </main>

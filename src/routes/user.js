@@ -9,12 +9,13 @@ const router = Router()
 router.get('/signout', async (req, res, next) => {
   if (!req.session.userid) return res.redirect('/signin')
 
-  return res.render('pages/signout')
+  req.session.destroy()
+  return res.redirect('/signin')
 })
 router.get('/signin', async (req, res, next) => {
   if (req.session.userid) return res.redirect('/')
 
-  return res.render('pages/signin')
+  return res.render('pages/signin', { profile: req.session.profile })
 })
 router.post('/signin', async (req, res, next) => {
   if (req.session.userid) return res.redirect('/')
@@ -30,13 +31,13 @@ router.post('/signin', async (req, res, next) => {
       res.redirect("/");
     }
   } else {
-    res.render("pages/signin", { error: "Wrong Email or Password" });
+    res.render("pages/signin", { error: "Wrong Email or Password", profile: req.session.profile });
   }
 })
 router.get('/registration', async (req, res, next) => {
   if (req.session.userid) return res.redirect('/')
 
-  return res.render('pages/registration')
+  return res.render('pages/registration', { profile: req.session.profile })
 })
 router.post('/registration', async (req, res, next) => {
   if (req.session.userid) return res.redirect('/')

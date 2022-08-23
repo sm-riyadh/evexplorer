@@ -1,5 +1,5 @@
 <%- include('../partials/metadata') %>
-  <%- include('../partials/navbar') %>
+  <%- include('../partials/navbar', { profile }) %>
 
     <main class="flex min-h-full justify-center">
       <section class="flex w-full justify-center gap-3">
@@ -32,7 +32,7 @@
                   </div>
                   <input name="date_start" type="text"
                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
-                    placeholder="Starting Date" />
+                    placeholder="Starting Date" required />
                 </div>
                 <span class="mx-4 text-gray-500">to</span>
                 <div class="relative">
@@ -58,10 +58,25 @@
                 placeholder="Brac University, Dhaka" required />
             </div>
             <div>
+              <label for="access"
+                class="ml-2 mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400">Catagory</label>
+              <select name="catagory"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500">
+                <option value="All">All Catagory</option>
+                <option value="Party">Party</option>
+                <option value="Festival">Festival</option>
+                <option value="Sports">Sports</option>
+                <option value="Contest">Contest</option>
+                <option value="Concert">Concert</option>
+                <option value="Others">Others</option>
+              </select>
+            </div>
+            <div>
               <label for="access" class="ml-2 mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400">Open
                 for</label>
               <select id="access" name="access"
-                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                required>
                 <option value="open" selected>Anyone</option>
                 <option value="ticket">Ticket Required</option>
                 <option value="restricted">Invitated Only</option>
@@ -94,7 +109,7 @@
                 class="ml-2 mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">Facebook Event Link</label>
               <input type="text" name="facebook" id="location"
                 class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
-                placeholder="https://www.facebook.com/events/2312..." required />
+                placeholder="https://www.facebook.com/events/2312..." />
             </div>
             <button type="submit"
               class="w-full rounded-lg bg-indigo-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">

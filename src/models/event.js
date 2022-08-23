@@ -22,7 +22,7 @@ const eventSchema = new mongoose.Schema({
     type: String,
   },
   image: {
-    type: String,
+    type: String
   },
   facebook: {
     type: String,
@@ -36,6 +36,10 @@ const eventSchema = new mongoose.Schema({
   },
   created_by: {
     type: String,
+  },
+  catagory: {
+    type: String,
+    default: "Others",
   },
   notics: [{
     date: {

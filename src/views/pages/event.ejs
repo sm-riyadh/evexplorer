@@ -1,5 +1,5 @@
 <%- include('../partials/metadata') %>
-  <%- include('../partials/navbar') %>
+  <%- include('../partials/navbar', { profile }) %>
     <% const {id, title, date_start, date_end, location, description, access, subscribed, notics, image, facebook,
       organizer, discussions, notices, created_by}=event %>
 
@@ -26,7 +26,7 @@
                 <div class="w-full rounded-lg dark:border-gray-700 dark:bg-gray-800">
                   <div class="px-4 py-1">
                     <div class="my-4">
-                      <% if(access==='ticket' ) { %>
+                      <% if(created_by!==profile.username && access==='ticket' ) { %>
                         <button type="submit"
                           class="my-2 w-full items-center rounded-lg bg-indigo-700 py-2.5 px-4 text-center text-xs font-medium text-white hover:bg-indigo-800 focus:ring-4 focus:ring-indigo-200 dark:focus:ring-indigo-900">
                           Buy Ticket
@@ -39,7 +39,7 @@
                           <% } %>
 
                             <br />
-                            <% if(!locals.subscribed ) { %>
+                            <% if(created_by!==profile.username && !locals.subscribed ) { %>
                               <a href='//<%=baseURL%>/subscribe-now?event=<%= id %>'><button
                                   class="my-2 w-full items-center rounded-lg bg-gray-600 py-2.5 px-4 text-center text-xs font-medium text-white hover:bg-gray-800 focus:ring-4 focus:ring-indigo-200 dark:focus:ring-indigo-900">
                                   Subscribe
@@ -143,47 +143,45 @@
                     </div>
               </div>
               <div id="discussions-container" class="hidden w-full py-8">
-                <% if(created_by===profile.username ) { %>
-                  <form action='/event/<%= id %>/post' method='post'>
-                    <input type="hidden" name="type" value='discussions'>
-                    <div class="-ml-2.5 flex items-center rounded-lg bg-gray-50">
-                      <textarea id="chat" rows="1" name='message'
-                        class="block w-full rounded-lg border-2 border-indigo-500 bg-white p-4 text-sm text-gray-900 focus:border-indigo-500 focus:ring-indigo-500 dark:border-indigo-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:focus:border-indigo-500 dark:focus:ring-indigo-500"
-                        placeholder="Your message..."></textarea>
-                      <button type="submit"
-                        class="ml-2 inline-flex cursor-pointer justify-center rounded-full p-2 text-indigo-600 hover:bg-indigo-100 dark:text-indigo-500 dark:hover:bg-gray-600">
-                        <svg aria-hidden="true" class="h-10 w-10 rotate-90" fill="currentColor" viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z">
-                          </path>
-                        </svg>
-                        <span class="sr-only">Send message</span>
-                      </button>
-                    </div>
-                  </form>
-                  <% } %>
-                    <% discussions.reverse().forEach(({date, message, created_by})=> { %>
-                      <div class="border-l-2 border-indigo-500 px-5">
-                        <div class="mx-3 flex items-center gap-3">
-                          <h5 class="text-xs font-bold tracking-tight text-gray-900 dark:text-white">
-                            <%= created_by %>
-                          </h5>
-                          <div class="ml-auto mt-6 mb-2">
-                            <i class="text-xs tracking-tight text-gray-900 dark:text-white">
-                              <%= dateFormat(date, 'hh:mm "on" d mmm' ) %>
-                            </i>
-                          </div>
-                        </div>
-
-                        <div
-                          class="max-w-42 bg-grey-900 block rounded-lg border border-gray-200 p-6 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                          <p class="text-sm font-normal text-gray-700 dark:text-gray-400">
-                            <%= message %>
-                          </p>
-                        </div>
+                <form action='/event/<%= id %>/post' method='post'>
+                  <input type="hidden" name="type" value='discussions'>
+                  <div class="-ml-2.5 flex items-center rounded-lg bg-gray-50">
+                    <textarea id="chat" rows="1" name='message'
+                      class="block w-full rounded-lg border-2 border-indigo-500 bg-white p-4 text-sm text-gray-900 focus:border-indigo-500 focus:ring-indigo-500 dark:border-indigo-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:focus:border-indigo-500 dark:focus:ring-indigo-500"
+                      placeholder="Your message..."></textarea>
+                    <button type="submit"
+                      class="ml-2 inline-flex cursor-pointer justify-center rounded-full p-2 text-indigo-600 hover:bg-indigo-100 dark:text-indigo-500 dark:hover:bg-gray-600">
+                      <svg aria-hidden="true" class="h-10 w-10 rotate-90" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z">
+                        </path>
+                      </svg>
+                      <span class="sr-only">Send message</span>
+                    </button>
+                  </div>
+                </form>
+                <% discussions.reverse().forEach(({date, message, created_by})=> { %>
+                  <div class="border-l-2 border-indigo-500 px-5">
+                    <div class="mx-3 flex items-center gap-3">
+                      <h5 class="text-xs font-bold tracking-tight text-gray-900 dark:text-white">
+                        <%= created_by %>
+                      </h5>
+                      <div class="ml-auto mt-6 mb-2">
+                        <i class="text-xs tracking-tight text-gray-900 dark:text-white">
+                          <%= dateFormat(date, 'hh:mm "on" d mmm' ) %>
+                        </i>
                       </div>
-                      <% }) %>
+                    </div>
+
+                    <div
+                      class="max-w-42 bg-grey-900 block rounded-lg border border-gray-200 p-6 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                      <p class="text-sm font-normal text-gray-700 dark:text-gray-400">
+                        <%= message %>
+                      </p>
+                    </div>
+                  </div>
+                  <% }) %>
               </div>
             </article>
           </section>
