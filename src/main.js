@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url'
 import { dirname, join, resolve } from 'path'
 
 const host = process.env.HOST || 'localhost'
-const port = process.env.PORT || 80
+const port = process.env.PORT || 8080
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const app = express()

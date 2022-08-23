@@ -6,6 +6,11 @@ import dateFormat from 'dateformat'
 
 const router = Router()
 
+router.get('/signout', async (req, res, next) => {
+  if (!req.session.userid) return res.redirect('/signin')
+
+  return res.render('pages/signout')
+})
 router.get('/signin', async (req, res, next) => {
   if (req.session.userid) return res.redirect('/')
 

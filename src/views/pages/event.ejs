@@ -1,10 +1,10 @@
 <%- include('../partials/metadata') %>
   <%- include('../partials/navbar') %>
-    <% const {id, title, date_start, date_end, location, description, access, subscribed, notics, discussions,organizer,
-      created_by}=event %>
+    <% const {id, title, date_start, date_end, location, description, access, subscribed, notics, image, facebook,
+      organizer, discussions, notices, created_by}=event %>
 
       <main class="pt-16">
-        <div class="flex h-72 items-end bg-[url(&quot;img.jpg&quot;)] bg-cover bg-center">
+        <div class="flex h-72 items-end bg-cover bg-center" style='background-image: url("<%= image %>")'>
           <div class="w-full flex-col px-36 py-4" style="
         background: linear-gradient(0deg, black, transparent 120%) no-repeat;
       ">
@@ -134,7 +134,7 @@
                           </div>
                           <div
                             class="max-w-42 bg-grey-900 block rounded-lg border border-gray-200 p-6 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                            <p class="font-normal text-gray-700 dark:text-gray-400">
+                            <p class="text-sm font-normal text-gray-700 dark:text-gray-400">
                               <%= message %>
                             </p>
                           </div>
@@ -178,7 +178,7 @@
 
                         <div
                           class="max-w-42 bg-grey-900 block rounded-lg border border-gray-200 p-6 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                          <p class="font-normal text-gray-700 dark:text-gray-400">
+                          <p class="text-sm font-normal text-gray-700 dark:text-gray-400">
                             <%= message %>
                           </p>
                         </div>

@@ -9,12 +9,12 @@
             <h5 class='mx-5 mt-5 mb-2 text-xs font-bold tracking-tight text-gray-400 dark:text-white'>SUBSCRIBED LIST
             </h5>
             <div class='h-auto flex flex-wrap'>
-              <% if(locals.events) events.forEach(({id, title, date_start, date_end, location,
-                time_start,time_end,privillege,notics,discussions})=> { %>
+              <% if(locals.events) events.forEach(({id, title, date_start, date_end, location, image, organizer})=> { %>
                 <a href='/event/<%= id %>'>
                   <div
                     class='w-64 max-w-md bg-white rounded-lg border border-gray-200 shadow-md m-3 dark:bg-gray-800 dark:border-gray-700'>
-                    <div class='rounded-t-lg bg-cover bg-center bg-[url("img.jpg")] h-28'> </div>
+                    <div class='rounded-t-lg bg-cover bg-center h-28' style='background-image: url("<%= image %>")'>
+                    </div>
                     <div class='p-5'>
                       <p class='mb-3 font-normal text-gray-700 dark:text-gray-400'>
                         <%= dateFormat(date_start, 'ddd, d mmm' ) %> - <%= dateFormat(date_end, 'd mmm' ) %>
@@ -24,8 +24,9 @@
                       </h5>
                       <p class='mb-3 text-sm font-normal text-gray-700 dark:text-gray-400'>
                         <%= location %>
-                          <br>
-                          Subscribed: <%= location %>
+                      </p>
+                      <p class='mb-3 text-xs font-normal text-gray-700 dark:text-gray-400'>
+                        <%= organizer %>
                       </p>
                       <div class='w-full flex justify-center items-center'>
                         <a href='//<%=baseURL%>/unsubscribe-now?event=<%= id %>'
