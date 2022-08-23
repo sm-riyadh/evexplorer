@@ -34,6 +34,10 @@ const eventSchema = new mongoose.Schema({
   organizer: {
     type: String,
   },
+  price: {
+    type: Number,
+    default: 0
+  },
   created_by: {
     type: String,
   },
@@ -41,6 +45,12 @@ const eventSchema = new mongoose.Schema({
     type: String,
     default: "Others",
   },
+  paid: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true
+    }
+  ],
   notics: [{
     date: {
       type: Date,

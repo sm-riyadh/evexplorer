@@ -17,9 +17,9 @@ router.get('/event-creater', async (req, res, next) => {
 router.post('/event-creater', async (req, res, next) => {
   if (!req.session.userid) return res.redirect('/signin')
 
-  const { title, date_start, date_end, location, access, image, description, catagory, facebook, organizer } = req.body
+  const { title, date_start, date_end, location, access, image, description, price, catagory, facebook, organizer } = req.body
 
-  Event({ title, date_start, date_end, location, access, image, description, catagory, facebook, organizer, created_by: req.session.profile.username }).save()
+  Event({ title, date_start, date_end, location, access, image, description, price, catagory, facebook, organizer, created_by: req.session.profile.username }).save()
 
   return res.redirect('/event-own')
 })
@@ -29,6 +29,14 @@ router.get('/event-own', async (req, res, next) => {
   const events = await Event.find({ created_by: { $eq: req.session.profile.username } })
 
   return res.render('pages/eventOwn', { events, dateFormat, profile: req.session.profile })
+})
+router.get('/event-pay', async (req, res, next) => {
+  if (!req.session.userid) return res.redirect('/signin')
+
+  await Event.findByIdAndUpdate(req.query.event, { $push: { paid: req.session.userid }, $inc: { subscribed: 1 } })
+  await User.findByIdAndUpdate(req.session.userid, { $push: { subscribed: req.query.event } })
+
+  return res.redirect('/event/' + req.query.event)
 })
 router.get('/event-delete', async (req, res, next) => {
   if (!req.session.userid) return res.redirect('/signin')
@@ -69,9 +77,10 @@ router.get('/unsubscribe-now', async (req, res, next) => {
 router.get('/event/:id', async (req, res, next) => {
   if (!req.session.userid) return res.redirect('/signin')
 
+  const { subscribed } = await User.findById(req.session.userid)
   const event = await Event.findById(req.params.id)
 
-  return res.render('pages/event', { event, dateFormat, profile: req.session.profile })
+  return res.render('pages/event', { event, dateFormat, profile: req.session.profile, subscribed: subscribed.includes(req.params.id), paid: event.paid.includes(req.session.userid) })
 })
 router.post('/event/:id/post', async (req, res, next) => {
   if (!req.session.userid) return res.redirect('/signin')
