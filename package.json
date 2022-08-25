@@ -11,7 +11,7 @@
     "build:client": "cross-env TAILWIND_MODE=build vite build --outDir dist/client  --ssrManifest",
     "build:server": "cross-env TAILWIND_MODE=build vite build --outDir dist/server --ssr src/main.js ",
     "serve": "vite preview",
-    "start": "concurrently \"nodemon ./src/main.js\", \"yarn run tailwind:css\"",
+    "start": "concurrently \"nodemon ./src/main.js\", \"npm run tailwind:css\"",
     "tailwind:css": "postcss -w ./src/style/main.css -o ./dist/style.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
